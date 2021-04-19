@@ -1,0 +1,18 @@
+
+.purple-button {
+-fx-background-color: #c489bf;
+-fx-background-radius: 100;
+}
+
+.field{
+-fx-background-radius: 100;
+}
+
+.pane3 {
+    -fx-background-image:url('1.jpg');
+     -fx-background-size: 100% 100%;
+}
+
+.table {
+-fx-background-radius: 100;
+}
