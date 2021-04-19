@@ -20,13 +20,14 @@
             <Label layoutX="179.0" layoutY="121.0" text="Name:" textFill="WHITE" />
             <TextField fx:id="brand_name" layoutX="222.0" layoutY="117.0" promptText="name" />
             <Button layoutX="196.0" layoutY="157.0" mnemonicParsing="false" onAction="#AddB" prefHeight="27.0" prefWidth="187.0" style="-fx-background-color: #3e98f7;" text="Add" textFill="WHITE" />
-            <Button layoutX="196.0" layoutY="199.0" mnemonicParsing="false" onAction="#UpdateB" prefHeight="27.0" prefWidth="187.0" style="-fx-background-color: #3e98f7;" text="Update" textFill="WHITE" />
-            <TableView fx:id="brandTable" layoutX="41.0" layoutY="245.0" prefHeight="194.0" prefWidth="498.0">
+            <TableView fx:id="brandTable" layoutX="41.0" layoutY="259.0" prefHeight="239.0" prefWidth="517.0">
               <columns>
-                <TableColumn fx:id="ID" prefWidth="69.0" text="ID" />
-                <TableColumn fx:id="Name" prefWidth="615.0" text="Name" />
+                <TableColumn fx:id="ID" prefWidth="194.0" text="ID" />
+                <TableColumn fx:id="Name" minWidth="4.0" prefWidth="321.0" text="Name" />
               </columns>
             </TableView>
+            <TextField fx:id="search" layoutX="112.0" layoutY="227.0" />
+            <Label layoutX="58.0" layoutY="231.0" text="Search:" textFill="WHITE" />
          </children>
       </AnchorPane>
    </children>
