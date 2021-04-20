@@ -1,31 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="542.0" prefWidth="607.0" style="-fx-background-color: #474641;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Automobile.AddCatalogController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="542.0" prefWidth="607.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Automobile.AddCatalogController">
    <children>
-      <AnchorPane layoutX="14.0" layoutY="11.0" prefHeight="520.0" prefWidth="579.0" style="-fx-background-color: #0e7796;">
+      <AnchorPane prefHeight="542.0" prefWidth="607.0" styleClass="pane3" stylesheets="@application.css">
          <children>
-            <Label fx:id="lb_register" layoutX="230.0" layoutY="30.0" text="Catalog" textFill="WHITE">
+            <Label fx:id="lb_register" layoutX="263.0" layoutY="75.0" text="Catalog" textFill="AQUA">
                <font>
-                  <Font size="18.0" />
+                  <Font name="Ink Free" size="25.0" />
                </font>
             </Label>
-            <Label layoutX="163.0" layoutY="69.0" text="Search" textFill="WHITE" />
-            <TextField fx:id="type_name" layoutX="212.0" layoutY="65.0" promptText="name" />
-            <TableView fx:id="brandTable" layoutX="7.0" layoutY="125.0" prefHeight="337.0" prefWidth="563.0">
+            <Label layoutX="166.0" layoutY="122.0" text="Search" textFill="AQUA">
+               <font>
+                  <Font name="Ink Free" size="16.0" />
+               </font></Label>
+            <TextField fx:id="type_name" alignment="CENTER" layoutX="227.0" layoutY="122.0" promptText="name" styleClass="field" />
+            <TableView fx:id="brandTable" layoutX="59.0" layoutY="161.0" prefHeight="306.0" prefWidth="489.0">
                <columns>
-                  <TableColumn fx:id="ID" prefWidth="79.0" text="ID" />
-                  <TableColumn fx:id="Vid" prefWidth="82.0" text="Vid" />
-                  <TableColumn fx:id="Cena" prefWidth="81.0" text="Cena" />
-                  <TableColumn fx:id="Marka" minWidth="0.0" prefWidth="98.0" text="Marka" />
-                  <TableColumn fx:id="Model" prefWidth="118.0" text="Model" />
-                  <TableColumn fx:id="Extra" prefWidth="102.0" text="Extra" />
+                  <TableColumn fx:id="ID" prefWidth="65.0" text="ID" />
+                  <TableColumn fx:id="Vid" prefWidth="85.0" text="Vid" />
+                  <TableColumn fx:id="Cena" prefWidth="85.0" text="Cena" />
+                  <TableColumn fx:id="Marka" minWidth="0.0" prefWidth="85.0" text="Marka" />
+                  <TableColumn fx:id="Model" prefWidth="85.0" text="Model" />
+                  <TableColumn fx:id="Extra" prefWidth="85.0" text="Extra" />
                </columns>
             </TableView>
          </children>

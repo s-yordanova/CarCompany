@@ -16,7 +16,10 @@ public class MainPanelController {
 
     @FXML
     private Pane pane;
-
+    @FXML
+    void AddAutomobile(ActionEvent event) {
+        loadPage("/AddAutomobile");
+    }
     @FXML
     void AddBrand(ActionEvent event) {
         loadPage("/AddBrand");

@@ -8,25 +8,29 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="542.0" prefWidth="607.0" style="-fx-background-color: #474641;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Automobile.AddExtraController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="542.0" prefWidth="607.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Automobile.AddExtraController">
    <children>
-      <AnchorPane layoutX="14.0" layoutY="11.0" prefHeight="520.0" prefWidth="579.0" style="-fx-background-color: #0e7796;">
+      <AnchorPane prefHeight="542.0" prefWidth="607.0" styleClass="pane3" stylesheets="@application.css">
          <children>
-            <Label fx:id="lb_register" layoutX="213.0" layoutY="30.0" text="Add Extra" textFill="WHITE">
+            <Label fx:id="lb_register" layoutX="251.0" layoutY="68.0" text="Add Extra" textFill="AQUA">
+               <font>
+                  <Font name="Ink Free" size="25.0" />
+               </font>
+            </Label>
+            <TextField fx:id="extra_name" alignment="CENTER" layoutX="230.0" layoutY="116.0" promptText="name" styleClass="field" />
+            <Button layoutX="204.0" layoutY="152.0" mnemonicParsing="false" onAction="#AddB" prefHeight="27.0" prefWidth="187.0" styleClass="purple-button" text="Add" textFill="WHITE" />
+            <TableView fx:id="brandTable" layoutX="75.0" layoutY="242.0" prefHeight="265.0" prefWidth="460.0">
+               <columns>
+                  <TableColumn fx:id="ID" prefWidth="230.0" text="ID" />
+                  <TableColumn fx:id="Name" prefWidth="230.0" text="Name" />
+               </columns>
+            </TableView>
+            <Label fx:id="lb_register1" layoutX="159.0" layoutY="202.0" text="Search:" textFill="AQUA">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label layoutX="163.0" layoutY="69.0" text="Name:" textFill="WHITE" />
-            <TextField fx:id="type_name" layoutX="212.0" layoutY="65.0" promptText="name" />
-            <Button layoutX="183.0" layoutY="106.0" mnemonicParsing="false" onAction="#AddB" prefHeight="27.0" prefWidth="187.0" style="-fx-background-color: #3e98f7;" text="Add" textFill="WHITE" />
-            <Button layoutX="183.0" layoutY="141.0" mnemonicParsing="false" onAction="#UpdateB" prefHeight="27.0" prefWidth="187.0" style="-fx-background-color: #3e98f7;" text="Update" textFill="WHITE" />
-            <TableView fx:id="brandTable" layoutX="58.0" layoutY="189.0" prefHeight="265.0" prefWidth="435.0">
-               <columns>
-                  <TableColumn fx:id="ID" prefWidth="199.0" text="ID" />
-                  <TableColumn fx:id="Name" prefWidth="218.0" text="Name" />
-               </columns>
-            </TableView>
+            <TextField fx:id="search" alignment="CENTER" layoutX="227.0" layoutY="203.0" prefHeight="22.0" prefWidth="157.0" promptText="name" styleClass="field" />
          </children>
       </AnchorPane>
    </children>

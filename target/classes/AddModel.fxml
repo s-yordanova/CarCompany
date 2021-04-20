@@ -8,34 +8,35 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="542.0" prefWidth="607.0" style="-fx-background-color: #474641;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Automobile.AddModelController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="542.0" prefWidth="607.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Automobile.AddModelController">
    <children>
-      <AnchorPane layoutX="18.0" layoutY="12.0" prefHeight="520.0" prefWidth="578.0" style="-fx-background-color: #0e7796;">
+      <AnchorPane prefHeight="542.0" prefWidth="607.0" styleClass="pane3" stylesheets="@application.css">
          <children>
-            <Label fx:id="lb_register" layoutX="233.0" layoutY="28.0" text="Add Model" textFill="WHITE">
+            <Label fx:id="lb_register" layoutX="250.0" layoutY="47.0" text="Add Model" textFill="AQUA">
+               <font>
+                  <Font name="Ink Free" size="25.0" />
+               </font>
+            </Label>
+            <TextField fx:id="model_name" alignment="TOP_CENTER" layoutX="230.0" layoutY="94.0" promptText="name" styleClass="field" />
+            <Button layoutX="203.0" layoutY="227.0" mnemonicParsing="false" onAction="#AddB" prefHeight="27.0" prefWidth="187.0" styleClass="purple-button" stylesheets="@application.css" text="Add" textFill="WHITE" />
+            <TableView fx:id="brandTable" layoutX="64.0" layoutY="319.0" prefHeight="209.0" prefWidth="480.0">
+               <columns>
+                  <TableColumn fx:id="ID" text="ID" />
+                  <TableColumn fx:id="Name" prefWidth="100.0" text="Name" />
+                  <TableColumn fx:id="Price" prefWidth="100.0" text="Price" />
+                  <TableColumn fx:id="Brand" prefWidth="100.0" text="Brand" />
+                  <TableColumn fx:id="Extra" prefWidth="100.0" text="Extra" />
+               </columns>
+            </TableView>
+            <TextField fx:id="model_price" alignment="TOP_CENTER" layoutX="229.0" layoutY="127.0" promptText="price" styleClass="field" />
+            <TextField fx:id="model_marka" alignment="TOP_CENTER" layoutX="230.0" layoutY="159.0" promptText="brand" styleClass="field" />
+            <TextField fx:id="model_extra" alignment="TOP_CENTER" layoutX="229.0" layoutY="193.0" promptText="extra" styleClass="field" />
+            <Label fx:id="lb_register1" layoutX="140.0" layoutY="267.0" text="Search:" textFill="AQUA">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label layoutX="163.0" layoutY="69.0" text="Name:" textFill="WHITE" />
-            <TextField fx:id="model_name" layoutX="212.0" layoutY="65.0" promptText="name" />
-            <Button layoutX="182.0" layoutY="224.0" mnemonicParsing="false" onAction="#AddB" prefHeight="27.0" prefWidth="187.0" style="-fx-background-color: #3e98f7;" text="Add" textFill="WHITE" />
-            <Button layoutX="182.0" layoutY="260.0" mnemonicParsing="false" onAction="#UpdateB" prefHeight="27.0" prefWidth="187.0" style="-fx-background-color: #3e98f7;" text="Update" textFill="WHITE" />
-            <TableView fx:id="brandTable" layoutX="34.0" layoutY="296.0" prefHeight="217.0" prefWidth="507.0">
-               <columns>
-                  <TableColumn fx:id="ID" prefWidth="107.0" text="ID" />
-                  <TableColumn fx:id="Name" prefWidth="100.0" text="Name" />
-                  <TableColumn fx:id="Name1" prefWidth="95.0" text="Price" />
-                  <TableColumn fx:id="Name2" prefWidth="101.0" text="Marka" />
-                  <TableColumn fx:id="Name3" prefWidth="101.0" text="Extra" />
-               </columns>
-            </TableView>
-            <TextField fx:id="model_price" layoutX="212.0" layoutY="99.0" promptText="price" />
-            <TextField fx:id="model_marka" layoutX="212.0" layoutY="132.0" promptText="marka" />
-            <TextField fx:id="model_extra" layoutX="212.0" layoutY="163.0" promptText="extra" />
-            <Label layoutX="163.0" layoutY="103.0" text="Price:" textFill="WHITE" />
-            <Label layoutX="163.0" layoutY="136.0" text="Marka:" textFill="WHITE" />
-            <Label layoutX="163.0" layoutY="167.0" text="Extra:" textFill="WHITE" />
+            <TextField fx:id="search" alignment="CENTER" layoutX="219.0" layoutY="267.0" prefHeight="22.0" prefWidth="157.0" promptText="name" styleClass="field" />
          </children>
       </AnchorPane>
    </children>

@@ -2,12 +2,13 @@ package Automobile;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 
-public class AddTypeController {
+import javax.xml.crypto.Data;
+import java.sql.SQLException;
+
+public class AddTypeController extends DatabaseClass{
 
     @FXML
     private Label lb_register;
@@ -16,22 +17,105 @@ public class AddTypeController {
     private TextField type_name;
 
     @FXML
-    private TableView<?> brandTable;
+    private TableView<DatabaseClass> brandTable;
 
     @FXML
-    private TableColumn<?, ?> ID;
+    private TableColumn<DatabaseClass, Integer> ID;
 
     @FXML
-    private TableColumn<?, ?> Name;
+    private TableColumn<DatabaseClass, String> Name;
 
     @FXML
-    void AddB(ActionEvent event) {
+    private Label lb_register1;
 
+    @FXML
+    private TextField search;
+
+    @FXML
+    void AddB(ActionEvent event) throws SQLException, ClassNotFoundException {
+        String name = type_name.getText();
+        String query="Select vid from vid where vid='"+name+"'";
+        try {
+            if(type_name.getText().isEmpty()){
+                Alert a = new Alert(Alert.AlertType.ERROR);
+                a.setContentText("Name Cannot be empty");
+                a.show();
+            } else if (selectAll(name,query,"vid")) {
+
+            }else{
+                AddType(name);
+                displayType(ID,Name,brandTable);
+            }
+
+
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+    public void startUpdate() throws SQLException, ClassNotFoundException {
+        brandTable.setOnMouseClicked((MouseEvent e) -> {
+            if (e.getClickCount() > 1) {
+                try {
+                    onEdit();
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                } catch (ClassNotFoundException classNotFoundException) {
+                    classNotFoundException.printStackTrace();
+                }
+            }
+        });
+        displayType(ID, Name, brandTable);
+    }
+    public void onEdit() throws SQLException, ClassNotFoundException {
+        // check the table's selected item and get selected item
+        String name = type_name.getText();
+        String query = "Select vid from vid where vid='" + name + "'";
+        try {
+            if (type_name.getText().isEmpty()) {
+                Alert a = new Alert(Alert.AlertType.ERROR);
+                a.setContentText("Name Cannot be empty");
+                a.show();
+            } else if (selectAll(name, query, "vid")) {
+
+            } else {
+                if (brandTable.getSelectionModel().getSelectedItem() != null) {
+                    DatabaseClass data = brandTable.getSelectionModel().getSelectedItem();
+                    name = type_name.getText();
+                    int id = data.getId();
+                    UpdateType(id, name);
+                    displayType(ID, Name, brandTable);
+                }
+            }
+        }catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
-    void UpdateB(ActionEvent event) {
-
+    void initialize() throws SQLException, ClassNotFoundException {
+        startUpdate();
+        search.textProperty().addListener((observable, oldValue, newValue) -> {
+            try {
+                String name = search.getText();
+                SelectType(name, ID, Name, brandTable);
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+            if (search.getText().isEmpty()) {
+                try {
+                    startUpdate();
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
-
 }
+

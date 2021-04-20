@@ -2,10 +2,7 @@ package Automobile;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 
 import javax.annotation.Resources;
@@ -31,12 +28,24 @@ public class AddBrandController extends Automobile.DatabaseClass {
     @FXML
     private TextField search;
     @FXML
+    private Label lb_register1;
+    @FXML
     void AddB(ActionEvent event) {
         try {
             String name = brand_name.getText();
-            System.out.println(name);
-            AddBrand(name);
-            display(ID,Name,brandTable);
+            String query="Select marka from marka where marka='"+name+"'";
+           if(brand_name.getText().isEmpty()){
+               Alert a = new Alert(Alert.AlertType.ERROR);
+               a.setContentText("Name Cannot be empty");
+               a.show();
+           }else if (selectAll(name,query,"marka")) {
+
+           }
+            else{
+               AddBrand(name);
+               displayBrand(ID,Name,brandTable);
+           }
+
 
         }
         catch(Exception e){
@@ -55,16 +64,26 @@ public class AddBrandController extends Automobile.DatabaseClass {
                 }
             }
         });
-        display(ID, Name, brandTable);
+        displayBrand(ID, Name, brandTable);
     }
     public void onEdit() throws SQLException, ClassNotFoundException {
         // check the table's selected item and get selected item
-        if (brandTable.getSelectionModel().getSelectedItem() != null) {
-            DatabaseClass data = brandTable.getSelectionModel().getSelectedItem();
-            String name = brand_name.getText();
-            int id =data.getId();
-            UpdateBrand(id,name);
-            display(ID,Name,brandTable);
+        String name = brand_name.getText();
+        String query="Select marka from marka where marka='"+name+"'";
+        if(brand_name.getText().isEmpty()){
+            Alert a = new Alert(Alert.AlertType.ERROR);
+            a.setContentText("Name Cannot be empty");
+            a.show();
+        }else if (selectAll(name,query,"marka")) {
+
+        }else {
+            if (brandTable.getSelectionModel().getSelectedItem() != null) {
+                DatabaseClass data = brandTable.getSelectionModel().getSelectedItem();
+                 name = brand_name.getText();
+                int id = data.getId();
+                UpdateBrand(id, name);
+                displayBrand(ID, Name, brandTable);
+            }
         }
     }
 
@@ -74,11 +93,20 @@ public class AddBrandController extends Automobile.DatabaseClass {
         search.textProperty().addListener((observable, oldValue, newValue) -> {
             try {
                 String name = search.getText();
-                Select(name,ID, Name, brandTable);
+                SelectBrand(name,ID, Name, brandTable);
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
+            }
+            if(search.getText().isEmpty()){
+                try {
+                    startUpdate();
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
             }
         });
 

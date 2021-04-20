@@ -2,12 +2,13 @@ package Automobile;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 
-public class AddModelController {
+import java.sql.SQLException;
+
+public class AddModelController extends DataClassModel{
+
 
     @FXML
     private Label lb_register;
@@ -16,22 +17,22 @@ public class AddModelController {
     private TextField model_name;
 
     @FXML
-    private TableView<?> brandTable;
+    private TableView<DataClassModel> brandTable;
 
     @FXML
-    private TableColumn<?, ?> ID;
+    private TableColumn<DataClassModel, Integer> ID;
 
     @FXML
-    private TableColumn<?, ?> Name;
+    private TableColumn<DataClassModel, String> Name;
 
     @FXML
-    private TableColumn<?, ?> Name1;
+    private TableColumn<DataClassModel, Float> Price;
 
     @FXML
-    private TableColumn<?, ?> Name2;
+    private TableColumn<DataClassModel, String> Brand;
 
     @FXML
-    private TableColumn<?, ?> Name3;
+    private TableColumn<DataClassModel, String> Extra;
 
     @FXML
     private TextField model_price;
@@ -43,13 +44,96 @@ public class AddModelController {
     private TextField model_extra;
 
     @FXML
-    void AddB(ActionEvent event) {
-
-    }
+    private Label lb_register1;
 
     @FXML
-    void UpdateB(ActionEvent event) {
+    private TextField search;
 
+    @FXML
+    void AddB(ActionEvent event) {
+        String name = model_name.getText();
+        String query = "Select model from model where model='" + name + "'";
+        try {
+            String price=model_price.getText();
+            String marka=model_marka.getText();
+            String extra=model_extra.getText();
+            if(name.isEmpty() || name.length()== 0 ||price.isEmpty()||price==null||marka.isEmpty()||marka.length()==0 ||extra.isEmpty()|| extra==null){
+                Alert a = new Alert(Alert.AlertType.ERROR);
+                a.setContentText("Cannot have empty fields");
+                a.show();
+            }else if (selectAll(name, query, "model")) {
+
+            }else{
+                AddModel(name,price,marka,extra);
+                displayModel(ID,Name,Price,Brand,Extra,brandTable);
+            }
+
+
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
     }
 
-}
+    public void startUpdate() throws SQLException, ClassNotFoundException {
+        brandTable.setOnMouseClicked((MouseEvent e) -> {
+            if (e.getClickCount() > 1) {
+                try {
+                    onEdit();
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                } catch (ClassNotFoundException classNotFoundException) {
+                    classNotFoundException.printStackTrace();
+                }
+            }
+        });
+        displayModel(ID,Name,Price,Brand,Extra,brandTable);
+    }
+    public void onEdit() throws SQLException, ClassNotFoundException {
+        // check the table's selected item and get selected item
+        String name = model_name.getText();
+        String price = model_price.getText();
+        String marka = model_marka.getText();
+        String extra = model_extra.getText();
+        String query = "Select model from model where model='" + name + "'";
+              if(name.isEmpty() || name==null||price.isEmpty()||price==null||marka.isEmpty()||marka==null ||extra.isEmpty()|| extra==null){
+                Alert a = new Alert(Alert.AlertType.ERROR);
+                a.setContentText("Name Cannot be empty");
+                a.show();
+            } else if (selectAll(name, query, "model")) {
+
+            } else {
+                if (brandTable.getSelectionModel().getSelectedItem() != null) {
+                    DatabaseClass data = brandTable.getSelectionModel().getSelectedItem();
+                    int id = data.getId();
+                    UpdateModel(id, name, price, marka, extra);
+                    displayModel(ID, Name, Price, Brand, Extra, brandTable);
+                }
+            }
+    }
+        @FXML
+        void initialize () throws SQLException, ClassNotFoundException {
+            startUpdate();
+            search.textProperty().addListener((observable, oldValue, newValue) -> {
+                try {
+                    String name = search.getText();
+                    SelectModel(name,ID, Name, Price, Brand, Extra, brandTable);;
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+                if (search.getText().isEmpty()) {
+                    try {
+                        startUpdate();
+                    } catch (SQLException throwables) {
+                        throwables.printStackTrace();
+                    } catch (ClassNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+        }
+    }
+
+

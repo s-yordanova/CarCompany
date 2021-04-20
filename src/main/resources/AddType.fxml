@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="542.0" prefWidth="607.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Automobile.AddTypeController">
    <children>
@@ -15,13 +19,18 @@
             </Label>
             <TextField fx:id="type_name" alignment="CENTER" layoutX="228.0" layoutY="107.0" promptText="name" styleClass="field" />
             <Button layoutX="209.0" layoutY="143.0" mnemonicParsing="false" onAction="#AddB" prefHeight="27.0" prefWidth="187.0" styleClass="purple-button" text="Add" textFill="WHITE" />
-            <Button layoutX="209.0" layoutY="180.0" mnemonicParsing="false" onAction="#UpdateB" prefHeight="27.0" prefWidth="187.0" styleClass="purple-button" text="Update" textFill="WHITE" />
-            <TableView fx:id="brandTable" layoutX="74.0" layoutY="216.0" prefHeight="246.0" prefWidth="460.0">
+            <TableView fx:id="brandTable" layoutX="61.0" layoutY="216.0" prefHeight="246.0" prefWidth="514.0">
                <columns>
                   <TableColumn fx:id="ID" prefWidth="230.0" text="ID" />
-                  <TableColumn fx:id="Name" prefWidth="230.0" text="Name" />
+                  <TableColumn fx:id="Name" prefWidth="282.0" text="Name" />
                </columns>
             </TableView>
+            <Label fx:id="lb_register1" layoutX="156.0" layoutY="180.0" text="Search:" textFill="AQUA">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <TextField fx:id="search" alignment="CENTER" layoutX="230.0" layoutY="181.0" prefHeight="22.0" prefWidth="157.0" promptText="name" styleClass="field" />
          </children>
       </AnchorPane>
    </children>
