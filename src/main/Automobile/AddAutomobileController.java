@@ -7,6 +7,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 
 import java.net.URL;
 import java.sql.ResultSet;
@@ -62,12 +63,38 @@ public class AddAutomobileController extends Automobile.DatabaseClass implements
 AddAutomobile(type,model,price1);
 displayAutomobile(ID,Type,Name1,Name2,Brand,brandTable);
     }
+    public void startUpdate() throws SQLException, ClassNotFoundException {
+        brandTable.setOnMouseClicked((MouseEvent e) -> {
+            if (e.getClickCount() > 1) {
+                try {
+                    onEdit();
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                } catch (ClassNotFoundException classNotFoundException) {
+                    classNotFoundException.printStackTrace();
+                }
+            }
+        });
+        displayAutomobile(ID,Type,Name1,Name2,Brand,brandTable);
+    }
+    public void onEdit() throws SQLException, ClassNotFoundException {
+        // check the table's selected item and get selected item
+
+            if (brandTable.getSelectionModel().getSelectedItem() != null) {
+                DatabaseClass data = brandTable.getSelectionModel().getSelectedItem();
+                int id = data.getId();
+                String p= price.getText();
+                UpdateAutomobile(id, model,type,p);
+                displayAutomobile(ID,Type,Name1,Name2,Brand,brandTable);
+            }
+        }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
             displayModelCombo(comboModel);
             displayTypeCombo(comboType);
+            startUpdate();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         } catch (ClassNotFoundException e) {
