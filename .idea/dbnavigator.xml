@@ -26,7 +26,7 @@
     <show-object-properties value="true" />
     <loaded-nodes>
       <connection connection-id="a9b8fbed-356a-4961-8f3a-fec06fb85864">
-        <schema name="car_company" object-types="table" />
+        <schema name="car_company" object-types="table, view" />
       </connection>
     </loaded-nodes>
   </component>

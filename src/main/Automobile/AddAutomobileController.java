@@ -1,77 +1,49 @@
 package Automobile;
 
-import com.sun.org.apache.xml.internal.security.Init;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.control.*;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 
-import java.net.URL;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ResourceBundle;
-
-public class AddAutomobileController extends Automobile.DatabaseClass implements Initializable {
+public class AddAutomobileController {
 
     @FXML
     private Label lb_register;
 
     @FXML
-    private TableView<DatabaseClass> brandTable;
+    private TextField automobile_type;
 
     @FXML
-    private TableColumn<DatabaseClass, Integer> ID;
+    private TableView<?> brandTable;
 
     @FXML
-    private TableColumn<DatabaseClass, String> Type;
+    private TableColumn<?, ?> ID;
 
     @FXML
-    private TableColumn<DatabaseClass, String> Name1;
+    private TableColumn<?, ?> Type;
 
     @FXML
-    private TableColumn<DatabaseClass, String> Name2;
+    private TableColumn<?, ?> Name1;
 
     @FXML
-    private TableColumn<DatabaseClass, String> Brand;
+    private TableColumn<?, ?> Name2;
 
     @FXML
-    private ComboBox comboType;
+    private TextField automobile_model;
 
     @FXML
-    private ComboBox comboModel;
-    @FXML
-    private TextField price;
-    private int model;
-    private int type;
+    private TextField automobile_price;
 
     @FXML
-    void selectModel(ActionEvent event) throws SQLException, ClassNotFoundException {
-        model= SelectModelCombo(comboModel);
+    void AddB(ActionEvent event) {
+
     }
 
     @FXML
-    void selectType(ActionEvent event) throws SQLException, ClassNotFoundException {
-        type= SelectTypeCombo(comboType);
+    void UpdateB(ActionEvent event) {
+
     }
 
-    @FXML
-    void AddB(ActionEvent event) throws SQLException, ClassNotFoundException {
-        String price1=price.getText().toString();
-AddAutomobile(type,model,price1);
-displayAutomobile(ID,Type,Name1,Name2,Brand,brandTable);
-    }
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        try {
-            displayModelCombo(comboModel);
-            displayTypeCombo(comboType);
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
 }

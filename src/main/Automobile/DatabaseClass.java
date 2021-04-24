@@ -2,7 +2,10 @@ package Automobile;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.sql.*;
@@ -10,49 +13,12 @@ import java.sql.*;
 public class DatabaseClass {
     int id;
     String name;
-    String model;
-    float price;
-    String brand;
-
-    public DatabaseClass(int id, String name, String model, float price, String brand) {
-        this.id = id;
-        this.name = name;
-        this.model = model;
-        this.price = price;
-        this.brand = brand;
-    }
-
-    public String getModel() {
-        return model;
-    }
-
-    public void setModel(String model) {
-        this.model = model;
-    }
-
-    public float getPrice() {
-        return price;
-    }
-
-    public void setPrice(float price) {
-        this.price = price;
-    }
-
-    public String getBrand() {
-        return brand;
-    }
-
-    public void setBrand(String brand) {
-        this.brand = brand;
-    }
 
     public DatabaseClass(int id, String name) {
         this.id = id;
         this.name = name;
     }
-    public DatabaseClass(String name) {
-        this.name = name;
-    }
+
     public DatabaseClass() {
 
     }
@@ -295,78 +261,6 @@ public class DatabaseClass {
         st.close();
 
     }
-    void displayTypeCombo(ComboBox p) throws SQLException, ClassNotFoundException {
-        Statement st = connection();
-        ObservableList<String> oblist = FXCollections.observableArrayList();
-        oblist.clear();
-        ResultSet rs1 = st.executeQuery("Select vid from vid");
-        while (rs1.next()) {
-            oblist.add(rs1.getString("vid"));
-        }
-       p.setItems(oblist);
-        st.close();
-    }
-
-    void displayModelCombo(ComboBox p) throws SQLException, ClassNotFoundException {
-        Statement st = connection();
-        ObservableList<String> oblist = FXCollections.observableArrayList();
-        oblist.clear();
-        ResultSet rs1 = st.executeQuery("Select model from model");
-        while (rs1.next()) {
-            oblist.add(rs1.getString("model"));
-        }
-        p.setItems(oblist);
-        st.close();
-    }
-   int SelectTypeCombo(ComboBox p) throws SQLException, ClassNotFoundException {
-        Statement st = connection();
-       String f ;
-       int i=0;
-               f=(String) p.getValue();
-
-        ResultSet f1=st.executeQuery("Select * from vid  where vid= '"+f+"'");
-       while(f1.next()) {
-           i=f1.getInt("id_vid");
-       }
-return i;
-    }
-   int SelectModelCombo(ComboBox p) throws SQLException, ClassNotFoundException {
-        Statement st = connection();
-        String f ;
-       int i = 0;
-        f=(String) p.getValue();
-
-       ResultSet f1= st.executeQuery("Select * from model  where model= '"+f+"'");
-       while(f1.next()) {
-           i=f1.getInt("id_model");
-       }
-return i;
-    }
-    void AddAutomobile(int type, int model, String price) {
-        try {
-            float price2=0;
-
-            // create our mysql database connection
-            Statement st = connection();
-            // execute the query, and get a java resultset
-
-ResultSet pricesql=st.executeQuery("Select cena from model where id_model='" + model + "'");
-while(pricesql.next()){
-   price2=Float.parseFloat(price)+pricesql.getFloat("cena");
-}
-            int rs = st.executeUpdate("INSERT INTO automobile" + "(id_vid,id_model,cena)" + "VALUES('" + type + "','" + model + "','" + price2 + "')");
-            // iterate through the java resultset
-            if (rs != 0) {
-
-                Alert a = new Alert(Alert.AlertType.INFORMATION);
-                a.setContentText("Inserted into database");
-                a.show();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-
-        }
-    }
    boolean selectAll(String name, String query,String f) throws SQLException, ClassNotFoundException {
         boolean p;
         Statement st = connection();
@@ -384,21 +278,5 @@ while(pricesql.next()){
         }
         return p;
     }
-    void displayAutomobile(TableColumn f, TableColumn f1,TableColumn f2,TableColumn f3,TableColumn f4, TableView f5) throws SQLException, ClassNotFoundException {
-        Statement st = connection();
-        ObservableList<DatabaseClass> oblist = FXCollections.observableArrayList();
-        oblist.clear();
-        ResultSet rs1 = st.executeQuery("Select a.id_automobile,v.vid,m.model,a.cena,ma.marka from automobile a join model m on a.id_model=m.id_model join marka ma on m.id_marka=ma.id_marka join vid v on a.id_vid=v.id_vid");
-        while (rs1.next()) {
-            oblist.add(new DatabaseClass(rs1.getInt("a.id_automobile"), rs1.getString("v.vid"),rs1.getString("m.model"),rs1.getFloat("a.cena"),rs1.getString("ma.marka")));
-        }
 
-        f.setCellValueFactory(new PropertyValueFactory<>("id"));
-        f1.setCellValueFactory(new PropertyValueFactory<>("name"));
-        f2.setCellValueFactory(new PropertyValueFactory<>("model"));
-                f3.setCellValueFactory(new PropertyValueFactory<>("price"));
-                f4.setCellValueFactory(new PropertyValueFactory<>("brand"));
-        f5.setItems(oblist);
-        st.close();
-    }
 }
