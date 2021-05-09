@@ -3,8 +3,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 
@@ -20,14 +22,14 @@ public class MainPanelController {
     void AddAutomobile(ActionEvent event) {
         loadPage("/AddAutomobile");
     }
-    @FXML
-    void AddBrand(ActionEvent event) {
-        loadPage("/AddBrand");
-    }
 
     @FXML
     void AddExtra(ActionEvent event) {
         loadPage("/AddExtra");
+    }
+    @FXML
+    void AddBrand(ActionEvent event) {
+        loadPage("/AddBrand");
     }
 
     @FXML
