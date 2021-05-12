@@ -1,5 +1,7 @@
 package Automobile;
 
+import DataClasses.DataClassModel;
+import DataClasses.DatabaseClass;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -7,8 +9,9 @@ import javafx.scene.input.MouseEvent;
 
 import java.sql.SQLException;
 
-public class AddExtraController extends DatabaseClass{
-
+public class AddExtraController {
+    DatabaseClass p=new DatabaseClass();
+    DataClassModel f=new DataClassModel();
     @FXML
     private Label lb_register;
 
@@ -39,11 +42,11 @@ public class AddExtraController extends DatabaseClass{
                 Alert a = new Alert(Alert.AlertType.ERROR);
                 a.setContentText("Name Cannot be empty");
                 a.show();
-            } else if (selectAll(name, query, "extra")) {
+            } else if (p.selectAll(name, query, "extra")) {
 
             }else{
-                AddExtra(name);
-                displayExtra(ID,Name,brandTable);
+                p.AddExtra(name);
+                p.displayExtra(ID,Name,brandTable);
             }
 
 
@@ -64,7 +67,7 @@ public class AddExtraController extends DatabaseClass{
                 }
             }
         });
-        displayExtra(ID, Name, brandTable);
+        p.displayExtra(ID, Name, brandTable);
     }
     public void onEdit() throws SQLException, ClassNotFoundException {
         // check the table's selected item and get selected item
@@ -75,15 +78,15 @@ public class AddExtraController extends DatabaseClass{
                 Alert a = new Alert(Alert.AlertType.ERROR);
                 a.setContentText("Name Cannot be empty");
                 a.show();
-            } else if (selectAll(name, query, "extra")) {
+            } else if (p.selectAll(name, query, "extra")) {
 
             } else {
                 if (brandTable.getSelectionModel().getSelectedItem() != null) {
                     DatabaseClass data = brandTable.getSelectionModel().getSelectedItem();
                     name = extra_name.getText();
                     int id = data.getId();
-                    UpdateExtra(id, name);
-                    displayExtra(ID, Name, brandTable);
+                    p.UpdateExtra(id, name);
+                    p.displayExtra(ID, Name, brandTable);
                 }
 
             }
@@ -95,7 +98,7 @@ public class AddExtraController extends DatabaseClass{
         search.textProperty().addListener((observable, oldValue, newValue) -> {
             try {
                 String name = search.getText();
-                SelectExtra(name, ID, Name, brandTable);
+                p.SelectExtra(name, ID, Name, brandTable);
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             } catch (ClassNotFoundException e) {

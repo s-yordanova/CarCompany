@@ -1,16 +1,17 @@
 package Automobile;
 
+import DataClasses.DataClassModel;
+import DataClasses.DatabaseClass;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 
-import javax.annotation.Resources;
-import java.net.URL;
 import java.sql.SQLException;
 
-public class AddBrandController extends Automobile.DatabaseClass {
-
+public class AddBrandController  {
+    DatabaseClass p=new DatabaseClass();
+    DataClassModel f=new DataClassModel();
     @FXML
     private Label lb_register;
 
@@ -38,12 +39,16 @@ public class AddBrandController extends Automobile.DatabaseClass {
                Alert a = new Alert(Alert.AlertType.ERROR);
                a.setContentText("Name Cannot be empty");
                a.show();
-           }else if (selectAll(name,query,"marka")) {
+           }else if (p.selectAll(name,query,"marka")) {
 
+           }else if(brand_name.getText().length()>20){
+               Alert a = new Alert(Alert.AlertType.ERROR);
+               a.setContentText("Name Cannot be more than 20 chars");
+               a.show();
            }
             else{
-               AddBrand(name);
-               displayBrand(ID,Name,brandTable);
+               p.AddBrand(name);
+              p.displayBrand(ID,Name,brandTable);
            }
 
 
@@ -64,7 +69,7 @@ public class AddBrandController extends Automobile.DatabaseClass {
                 }
             }
         });
-        displayBrand(ID, Name, brandTable);
+       p.displayBrand(ID, Name, brandTable);
     }
     public void onEdit() throws SQLException, ClassNotFoundException {
         // check the table's selected item and get selected item
@@ -74,15 +79,15 @@ public class AddBrandController extends Automobile.DatabaseClass {
             Alert a = new Alert(Alert.AlertType.ERROR);
             a.setContentText("Name Cannot be empty");
             a.show();
-        }else if (selectAll(name,query,"marka")) {
+        }else if (p.selectAll(name,query,"marka")) {
 
         }else {
             if (brandTable.getSelectionModel().getSelectedItem() != null) {
                 DatabaseClass data = brandTable.getSelectionModel().getSelectedItem();
                  name = brand_name.getText();
                 int id = data.getId();
-                UpdateBrand(id, name);
-                displayBrand(ID, Name, brandTable);
+                p.UpdateBrand(id, name);
+                p.displayBrand(ID, Name, brandTable);
             }
         }
     }
@@ -93,7 +98,7 @@ public class AddBrandController extends Automobile.DatabaseClass {
         search.textProperty().addListener((observable, oldValue, newValue) -> {
             try {
                 String name = search.getText();
-                SelectBrand(name,ID, Name, brandTable);
+                p.SelectBrand(name,ID, Name, brandTable);
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             } catch (ClassNotFoundException e) {

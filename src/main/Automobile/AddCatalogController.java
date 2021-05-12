@@ -1,5 +1,7 @@
 package Automobile;
 
+import DataClasses.DataClassModel;
+import DataClasses.DatabaseClass;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -11,8 +13,9 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-public class AddCatalogController extends DatabaseClass implements Initializable {
-
+public class AddCatalogController  implements Initializable {
+    DatabaseClass p=new DatabaseClass();
+    DataClassModel f=new DataClassModel();
     @FXML
     private Label lb_register;
 
@@ -45,7 +48,7 @@ public class AddCatalogController extends DatabaseClass implements Initializable
         type_name.textProperty().addListener((observable, oldValue, newValue) -> {
             try {
                 String name = type_name.getText();
-                selectCatalog(name,ID,Vid,Cena,Marka,Model,Extra,brandTable);
+                p.selectCatalog(name,ID,Vid,Cena,Marka,Model,Extra,brandTable);
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             } catch (ClassNotFoundException e) {
@@ -53,7 +56,7 @@ public class AddCatalogController extends DatabaseClass implements Initializable
             }
             if(type_name.getText().isEmpty()){
                 try {
-                    displayCatalog(ID,Vid,Cena,Marka,Model,Extra,brandTable);
+                    p.displayCatalog(ID,Vid,Cena,Marka,Model,Extra,brandTable);
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 } catch (ClassNotFoundException e) {
@@ -62,7 +65,7 @@ public class AddCatalogController extends DatabaseClass implements Initializable
             }
         });
         try {
-            displayCatalog(ID,Vid,Cena,Marka,Model,Extra,brandTable);
+           p.displayCatalog(ID,Vid,Cena,Marka,Model,Extra,brandTable);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         } catch (ClassNotFoundException e) {

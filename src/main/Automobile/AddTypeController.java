@@ -1,14 +1,15 @@
 package Automobile;
 
+import DataClasses.DataClassModel;
+import DataClasses.DatabaseClass;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 
-import javax.xml.crypto.Data;
 import java.sql.SQLException;
 
-public class AddTypeController extends DatabaseClass{
+public class AddTypeController {
 
     @FXML
     private Label lb_register;
@@ -30,7 +31,8 @@ public class AddTypeController extends DatabaseClass{
 
     @FXML
     private TextField search;
-
+    DatabaseClass p=new DatabaseClass();
+    DataClassModel f=new DataClassModel();
     @FXML
     void AddB(ActionEvent event) throws SQLException, ClassNotFoundException {
         String name = type_name.getText();
@@ -40,11 +42,11 @@ public class AddTypeController extends DatabaseClass{
                 Alert a = new Alert(Alert.AlertType.ERROR);
                 a.setContentText("Name Cannot be empty");
                 a.show();
-            } else if (selectAll(name,query,"vid")) {
+            } else if (p.selectAll(name,query,"vid")) {
 
             }else{
-                AddType(name);
-                displayType(ID,Name,brandTable);
+                p.AddType(name);
+               p.displayType(ID,Name,brandTable);
             }
 
 
@@ -65,7 +67,7 @@ public class AddTypeController extends DatabaseClass{
                 }
             }
         });
-        displayType(ID, Name, brandTable);
+        p.displayType(ID, Name, brandTable);
     }
     public void onEdit() throws SQLException, ClassNotFoundException {
         // check the table's selected item and get selected item
@@ -76,15 +78,15 @@ public class AddTypeController extends DatabaseClass{
                 Alert a = new Alert(Alert.AlertType.ERROR);
                 a.setContentText("Name Cannot be empty");
                 a.show();
-            } else if (selectAll(name, query, "vid")) {
+            } else if (p.selectAll(name, query, "vid")) {
 
             } else {
                 if (brandTable.getSelectionModel().getSelectedItem() != null) {
                     DatabaseClass data = brandTable.getSelectionModel().getSelectedItem();
                     name = type_name.getText();
                     int id = data.getId();
-                    UpdateType(id, name);
-                    displayType(ID, Name, brandTable);
+                    p.UpdateType(id, name);
+                    p.displayType(ID, Name, brandTable);
                 }
             }
         }catch (SQLException throwables) {
@@ -100,7 +102,7 @@ public class AddTypeController extends DatabaseClass{
         search.textProperty().addListener((observable, oldValue, newValue) -> {
             try {
                 String name = search.getText();
-                SelectType(name, ID, Name, brandTable);
+                p.SelectType(name, ID, Name, brandTable);
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             } catch (ClassNotFoundException e) {

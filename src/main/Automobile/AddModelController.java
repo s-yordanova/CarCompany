@@ -1,5 +1,9 @@
 package Automobile;
 
+
+
+import DataClasses.DataClassModel;
+import DataClasses.DatabaseClass;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -7,7 +11,7 @@ import javafx.scene.input.MouseEvent;
 
 import java.sql.SQLException;
 
-public class AddModelController extends DataClassModel{
+public class AddModelController  {
 
 
     @FXML
@@ -48,7 +52,8 @@ public class AddModelController extends DataClassModel{
 
     @FXML
     private TextField search;
-
+    DatabaseClass p=new DatabaseClass();
+    DataClassModel f=new DataClassModel();
     @FXML
     void AddB(ActionEvent event) {
         String name = model_name.getText();
@@ -61,11 +66,15 @@ public class AddModelController extends DataClassModel{
                 Alert a = new Alert(Alert.AlertType.ERROR);
                 a.setContentText("Cannot have empty fields");
                 a.show();
-            }else if (selectAll(name, query, "model")) {
+            }else if (p.selectAll(name, query, "model")) {
 
+            }else if(name.length()>20 || marka.length()>20){
+                Alert a = new Alert(Alert.AlertType.ERROR);
+                a.setContentText("Name Cannot be more than 20 chars");
+                a.show();
             }else{
-                AddModel(name,price,marka,extra);
-                displayModel(ID,Name,Price,Brand,Extra,brandTable);
+                f.AddModel(name,price,marka,extra);
+                f.displayModel(ID,Name,Price,Brand,Extra,brandTable);
             }
 
 
@@ -87,7 +96,7 @@ public class AddModelController extends DataClassModel{
                 }
             }
         });
-        displayModel(ID,Name,Price,Brand,Extra,brandTable);
+        f.displayModel(ID,Name,Price,Brand,Extra,brandTable);
     }
     public void onEdit() throws SQLException, ClassNotFoundException {
         // check the table's selected item and get selected item
@@ -100,14 +109,15 @@ public class AddModelController extends DataClassModel{
                 Alert a = new Alert(Alert.AlertType.ERROR);
                 a.setContentText("Name Cannot be empty");
                 a.show();
-            } else if (selectAll(name, query, "model")) {
+
+            } else if (p.selectAll(name, query, "model")) {
 
             } else {
                 if (brandTable.getSelectionModel().getSelectedItem() != null) {
                     DatabaseClass data = brandTable.getSelectionModel().getSelectedItem();
                     int id = data.getId();
-                    UpdateModel(id, name, price, marka, extra);
-                    displayModel(ID, Name, Price, Brand, Extra, brandTable);
+                    f.UpdateModel(id, name, price, marka, extra);
+                    f.displayModel(ID, Name, Price, Brand, Extra, brandTable);
                 }
             }
     }
@@ -117,7 +127,7 @@ public class AddModelController extends DataClassModel{
             search.textProperty().addListener((observable, oldValue, newValue) -> {
                 try {
                     String name = search.getText();
-                    SelectModel(name,ID, Name, Price, Brand, Extra, brandTable);;
+                    f.SelectModel(name,ID, Name, Price, Brand, Extra, brandTable);;
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 } catch (ClassNotFoundException e) {
